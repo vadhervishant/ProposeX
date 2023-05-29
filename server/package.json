@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "ProposeX app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vadhervishant/ProposeX.git"
+  },
+  "author": "Vishant Vadher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vadhervishant/ProposeX/issues"
+  },
+  "homepage": "https://github.com/vadhervishant/ProposeX#readme"
+}
