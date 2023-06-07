@@ -4,7 +4,8 @@
   "description": "ProposeX app",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/vadhervishant/ProposeX/issues"
   },
-  "homepage": "https://github.com/vadhervishant/ProposeX#readme"
+  "homepage": "https://github.com/vadhervishant/ProposeX#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.2.2",
+    "nodemailer": "^6.9.3",
+    "serverless-http": "^3.2.0"
+  }
 }
