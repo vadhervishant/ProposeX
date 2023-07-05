@@ -56,7 +56,13 @@ const userModel = mongoose.Schema({
         type: String,
         trim: true,
         default: '',
-    }, 
+    },
+    code: {
+        type: Number,
+    },
+    codeExpiry: {
+        type: Date,
+      },
 });
 
 module.exports = mongoose.model('users', userModel);
