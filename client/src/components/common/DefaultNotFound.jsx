@@ -1,4 +1,3 @@
-// Author: Monil Hitesh Andharia (B00884813)
 
 import * as React from 'react';
 import * as Mui from '@mui/material';

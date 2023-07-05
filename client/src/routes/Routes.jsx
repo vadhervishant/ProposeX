@@ -1,5 +1,3 @@
-// Author: Monil Hitesh Andharia (B00884813)
-
 import React from "react";
 import { Route, Routes } from 'react-router-dom';
 import Login from "../components/user/Login";
@@ -19,7 +17,7 @@ const AppRoutes = () => {
             <Route path="/ForgotPassword" element={<ForgotPassword />}></Route>
             <Route path="/Logout" element={<Logout />}></Route>
             <Route path="/UserDashboard" element={<UserDashboard />} />
-            
+
 
 
         </Routes>

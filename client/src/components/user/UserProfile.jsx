@@ -1,5 +1,3 @@
-// Author: Monil Hitesh Andharia (B00884813)
-
 import { useEffect, useState, useContext } from "react";
 import TextField from '@mui/material/TextField';
 import { Button, Card, Switch, FormControlLabel, Typography } from "@mui/material";

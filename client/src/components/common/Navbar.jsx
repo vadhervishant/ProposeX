@@ -1,5 +1,3 @@
-// Author: Monil Hitesh Andharia (B00884813)
-
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -24,7 +22,7 @@ import { styled, alpha } from '@mui/material/styles';
 
 const appName = "ProposeX";
 const appNameShort = "CN";
-const pages = [];
+const pages = [/* { text: 'Contact', route: 'Contact' }, { text: 'About', route: 'About' } */];
 const settings_logged_in = 
 [{ text: 'Logout', icon: Logout, route: 'Logout' }];
 const settings_logged_out = 
