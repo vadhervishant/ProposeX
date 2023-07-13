@@ -13,6 +13,48 @@ const {
   getUserProfileByID,
 } = require('../controllers/user');
 
+/**
+ * @swagger
+ * /api/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               confirmPassword:
+ *                 type: string
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User registration successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 success:
+ *                   type: boolean
+ *       400:
+ *         description: Invalid request or passwords do not match
+ *       409:
+ *         description: Email already exists
+ *       500:
+ *         description: Internal server error
+ */
 router.route('/register').post(register);
 router.route('/login').post(login)
 router.route('/forgotpassword').post(forgotPassword);
