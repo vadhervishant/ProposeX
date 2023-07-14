@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { Divider, ListItemIcon, ListItemText } from '@mui/material';
-import { Settings, Movie, MusicNote, Book, WatchLater, Timeline, Diversity1, Login, PersonAdd, Logout, AdminPanelSettings, Home } from '@mui/icons-material';
+import { Settings, Movie, MusicNote, Book, WatchLater, Timeline, Diversity1, Login, PersonAdd, InfoRounded, Logout, AdminPanelSettings, Home, AlternateEmail } from '@mui/icons-material';
 import { styled, alpha } from '@mui/material/styles';
 
 const appName = "ProposeX";
@@ -26,7 +26,7 @@ const pages = [/* { text: 'Contact', route: 'Contact' }, { text: 'About', route:
 const settings_logged_in = 
 [{ text: 'Logout', icon: Logout, route: 'Logout' }];
 const settings_logged_out = 
-[{ text: 'Login', icon: Login, route: 'Login' }, { text: 'Register', icon: PersonAdd, route: 'Register' }];
+[{ text: 'Login', icon: Login, route: 'Login' }, { text: 'Register', icon: PersonAdd, route: 'Register' }, { text: 'About Us', icon: InfoRounded , route: 'About' }, { text: 'Contact Us', icon: AlternateEmail , route: 'Contact' }];
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',

@@ -1,120 +1,67 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import React from 'react';
+import { Grid, Typography, Button } from '@mui/material';
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      navigate(user.role === "admin" ? "/AdminDashboard" : "/UserDashboard");
+    }
+  }, []);
+
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <main>
-        {/* Hero unit */}
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
+    <Grid container sx={{
+      height: '100vh',
+    }}>
+      <Grid item xs={12} sm={6} md={6} sx={{
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: `url("https://images2.minutemediacdn.com/image/upload/c_crop,w_2000,h_1125,x_0,y_126/c_fill,w_1440,ar_16:9,f_auto,q_auto,g_auto/images%2FvoltaxMediaLibrary%2Fmmsport%2Fmentalfloss%2F01g895z7vtqjxwvvzj5v.jpg") no-repeat center center/cover`,
+      }}></Grid>
+      <Grid item xs={12} sm={6} md={6} sx={{
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 5,
+      }}>
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="flex-start"
+          height="100%"
         >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Dashboard Posts Block
-            </Typography>
-          </Container>
-        </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
-          {/* <Grid container spacing={4}> */}
-            {cards.map((card) => (
-              // <Grid item key={card} xs={12} sm={6} md={4}>
-                <>
-                 <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardMedia
-                    component="div"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image="https://source.unsplash.com/random?wallpapers"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
-                </Card>
-                <br/>
-                </>
-               
-                
-              // </Grid>
-            ))}
-          {/* </Grid> */}
-        </Container>
-      </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </Box>
-      {/* End footer */}
-    </ThemeProvider>
+          <Typography variant="h2" sx={{
+            marginBottom: 5,
+          }}>
+            Welcome to our entertainment platform
+          </Typography>
+          <Typography variant="h2" sx={{
+            fontWeight: 'bold',
+            marginBottom: 5,
+          }}>
+            ProposeX
+          </Typography>
+          <Typography variant="h5" sx={{
+            marginBottom: 5,
+          }}>
+            Discover new movies, TV shows, music, and books, and connect with like-minded individuals.
+          </Typography>
+          <Button
+            variant="contained"
+            onClick={() => navigate("/Login")}
+          >
+            Join Us
+          </Button>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
