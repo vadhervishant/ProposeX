@@ -9,7 +9,7 @@ export default function LandingPage() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      navigate(user.role === "admin" ? "/AdminDashboard" : "/UserDashboard");
+      navigate(user.role === "admin" ? "/AdminDashboard" : "/posts");
     }
   }, []);
 
@@ -41,7 +41,7 @@ export default function LandingPage() {
           <Typography variant="h2" sx={{
             marginBottom: 5,
           }}>
-            Welcome to our entertainment platform
+            {/* Welcome to reporting platform */}
           </Typography>
           <Typography variant="h2" sx={{
             fontWeight: 'bold',
@@ -52,7 +52,8 @@ export default function LandingPage() {
           <Typography variant="h5" sx={{
             marginBottom: 5,
           }}>
-            Discover new movies, TV shows, music, and books, and connect with like-minded individuals.
+            A Centralized Platform for Reporting and Managing Damaged Public Property.<br/>
+            Uniting Communities for Public Property Restoration
           </Typography>
           <Button
             variant="contained"

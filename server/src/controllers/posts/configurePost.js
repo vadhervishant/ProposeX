@@ -107,7 +107,7 @@ const deletePost = async (req, res, next) => {
         const { postID } = req.params;
         console.log("Request received to deleteBook " + postID);
 
-        const post = await Book.findOneAndDelete({ _id: postID });
+        const post = await Post.findOneAndDelete({ _id: postID });
         if (!post) {
             return res.status(404).json({ success: false, message: 'Post not found' });
         }

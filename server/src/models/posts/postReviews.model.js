@@ -1,4 +1,5 @@
-const mongoose = require('../../utils/dbConn');
+const mongoose = require('../../../utils/dbConn');
+
 
 const postReviewsModel = mongoose.Schema({
   userId: {

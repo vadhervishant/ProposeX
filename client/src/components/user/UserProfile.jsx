@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import TextField from '@mui/material/TextField';
-import { Button, Card, Switch, FormControlLabel, Typography } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import Grid from '@mui/material/Grid';
 import Dialog from '@mui/material/Dialog';
@@ -9,7 +9,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { UserContext } from "../../utils/UserContext";
 
 
 const UserProfile = () => {
@@ -19,7 +18,6 @@ const UserProfile = () => {
     lastName: '',
     bio: '',
     email: '',
-    nsfw: false,
   };
 
   const defaultPasswordForm = {
@@ -36,7 +34,7 @@ const UserProfile = () => {
   const [isUpdatePasswordPending, setIsUpdatePasswordPending] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
+  // const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
 
 
   const [error, setError] = useState({
@@ -44,7 +42,6 @@ const UserProfile = () => {
     lastName: false,
     bio: false,
     email: false,
-    nsfw: false,
     password: false,
     confirmPassword: false
   });
@@ -71,9 +68,9 @@ const UserProfile = () => {
       if (error.response.status == 401) {
         navigate("/SessionTimeOut");
       }
-      setSnackbarSeverity("error");
-      setSnackbarMessage('Something went wrong! Please refresh to try again...');
-      setOpenSnackbar(true);
+      // setSnackbarSeverity("error");
+      // setSnackbarMessage('Something went wrong! Please refresh to try again...');
+      // setOpenSnackbar(true);
     }
   };
 
@@ -94,17 +91,17 @@ const UserProfile = () => {
         setProfileFormChanged(false);
         setProfileForm(response.data.user);
         setIsPending(false);
-        setSnackbarSeverity("success");
-        setSnackbarMessage('Profile updated successfully.');
-        setOpenSnackbar(true);
+        // setSnackbarSeverity("success");
+        // setSnackbarMessage('Profile updated successfully.');
+        // setOpenSnackbar(true);
       }
     } catch (error) {
       if (error.response.status == 401) {
         navigate("/SessionTimeOut");
       }
-      setSnackbarSeverity("error");
-      setSnackbarMessage(error.response.data.message);
-      setOpenSnackbar(true);
+      // setSnackbarSeverity("error");
+      // setSnackbarMessage(error.response.data.message);
+      // setOpenSnackbar(true);
     }
   };
 
@@ -126,19 +123,19 @@ const UserProfile = () => {
         setProfileFormChanged(false);
         setIsUpdatePasswordPending(false);
         setProfileForm(response.data.user);
-        setSnackbarSeverity("success");
+        // setSnackbarSeverity("success");
         setPasswordForm({ ...defaultPasswordForm });
         setOpenDialog(false);
-        setSnackbarMessage('Password changed successfully.');
-        setOpenSnackbar(true);
+        // setSnackbarMessage('Password changed successfully.');
+        // setOpenSnackbar(true);
       }
     } catch (error) {
       if (error.response.status == 401) {
         navigate("/SessionTimeOut");
       }
-      setSnackbarSeverity("error");
-      setSnackbarMessage(error.response.data.message);
-      setOpenSnackbar(true);
+      // setSnackbarSeverity("error");
+      // setSnackbarMessage(error.response.data.message);
+      // setOpenSnackbar(true);
     }
   };
 
@@ -172,8 +169,6 @@ const UserProfile = () => {
       case "email":
         errorNew["email"] = !event.target.value.match(emailRegex);
         break;
-      case "nsfw":
-        break;
       case "password":
         errorNew["password"] = !event.target.value.match(passwordRegex);
         if (passwordForm.confirmPassword !== '') {
@@ -206,10 +201,6 @@ const UserProfile = () => {
 
   const handleClick = (event) => {
     switch (event.target.name) {
-      case "nsfw":
-        setProfileFormChanged(true);
-        setProfileForm({ ...profileForm, nsfw: !profileForm.nsfw });
-        break;
       case "cancel":
         setProfileForm({ ...profileForm });
         setPasswordForm({ ...defaultPasswordForm });
@@ -286,17 +277,6 @@ const UserProfile = () => {
                 helperText={error.bio ? "Invalid bio format." : ""}
                 value={profileForm.bio}
                 fullWidth
-              />
-            </Grid>
-            <Grid item>
-              <FormControlLabel
-                label="Show Adult Content"
-                control={<Switch
-                  id="nsfw"
-                  name="nsfw"
-                  checked={profileForm.nsfw}
-                  onClick={handleClick}
-                />}
               />
             </Grid>
             <Grid item>

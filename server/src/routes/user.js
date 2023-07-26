@@ -66,9 +66,10 @@ router.route('/profile/:id').get(verifyToken, getUserProfileByID);
 router.get('/', (req, res, next) => {
   res.send('Health OK');
 });
-router.get('/*', (req, res, next) => {
-  res.send('<h1>Page Not Found</h1>');
-});
+
+// router.get('/*', (req, res, next) => {
+//   res.send('<h1>Page Not Found</h1>');
+// });
 
 
 module.exports = router;

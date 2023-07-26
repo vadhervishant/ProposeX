@@ -93,11 +93,12 @@ const verifyToken = async (req, res, next) => {
     try {
       let token = req.header('authorization');
       if (!token) {
-        throw throwError(401, 'User unauthorized');
+        throw throwError(401, 'User is unauthorized');
       }
       token = token.split(' ')[1];
       const decodedJwt = await jwtUtil.verifyJWT(token);
       if (!decodedJwt.verify) {
+        res.redirect('/logout');
         throw throwError(401, 'Token expired or invalid');
       }
       req.data = decodedJwt.data;
@@ -263,11 +264,11 @@ const getUserProfileByID = async (req, res, next) => {
 const updateUserProfile = async (req, res, next) => {
   try {
     if (Object.keys(req.body).length > 0) {
-      const { firstName, lastName, bio, nsfw } = req.body;
+      const { firstName, lastName, bio } = req.body;
       const { email } = req.data.user;
       var user = await User.findOneAndUpdate(
         { email },
-        { firstName, lastName, bio, nsfw },
+        { firstName, lastName, bio },
         {
           new: true,
         },

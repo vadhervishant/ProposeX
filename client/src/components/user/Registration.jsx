@@ -37,7 +37,7 @@ const Registration = () => {
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      navigate("/UserDashboard");
+      navigate("/posts");
     }
   }, []);
 

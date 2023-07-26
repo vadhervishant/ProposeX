@@ -17,16 +17,47 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { Divider, ListItemIcon, ListItemText } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import TuneIcon from '@mui/icons-material/Tune';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { Settings, Movie, MusicNote, Book, WatchLater, Timeline, Diversity1, Login, PersonAdd, InfoRounded, Logout, AdminPanelSettings, Home, AlternateEmail } from '@mui/icons-material';
 import { styled, alpha } from '@mui/material/styles';
 
 const appName = "ProposeX";
 const appNameShort = "CN";
 const pages = [/* { text: 'Contact', route: 'Contact' }, { text: 'About', route: 'About' } */];
-const settings_logged_in = 
-[{ text: 'Logout', icon: Logout, route: 'Logout' }];
-const settings_logged_out = 
-[{ text: 'Login', icon: Login, route: 'Login' }, { text: 'Register', icon: PersonAdd, route: 'Register' }, { text: 'About Us', icon: InfoRounded , route: 'About' }, { text: 'Contact Us', icon: AlternateEmail , route: 'Contact' }];
+// const settings_logged_in = 
+// [{ text: 'Logout', icon: Logout, route: 'Logout' },  { text: 'Configure Posts', icon: Settings, route: 'configureposts' }];
+const settings_logged_in = [
+                            { 
+                                text: 'Configure Posts', 
+                                icon: TuneIcon, route: 'ConfigurePosts' 
+                            }, 
+                            {   
+                                text: 'Add Post', 
+                                icon: AddCircleIcon, 
+                                route: 'AddPost' 
+                            }, 
+                            { 
+                                text: 'Edit / Delete Posts',
+                                icon: AutoFixHighIcon,
+                                route: 'UpdatePost' 
+                            }, 
+                            {}, 
+                            { 
+                                text: 'Settings', 
+                                icon: Settings, 
+                                route: 'Profile' },
+                            {}, 
+                            { 
+                                text: 'Logout', 
+                                icon: Logout, 
+                                route: 'Logout' 
+                            }
+                        ];
+
+const settings_logged_out = [{ text: 'Login', icon: Login, route: 'Login' }, { text: 'Register', icon: PersonAdd, route: 'Register' }, 
+{ text: 'About Us', icon: InfoRounded , route: 'About' }, { text: 'Contact Us', icon: AlternateEmail , route: 'Contact' }];
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -204,7 +235,7 @@ function Navbar() {
                                 </Button>
                             )))}
                         </Box>
-                        {localStorage.getItem('token') && (<Search>
+                        {/* {localStorage.getItem('token') && (<Search>
                             <SearchIconWrapper>
                                 <SearchIcon />
                             </SearchIconWrapper>
@@ -220,7 +251,7 @@ function Navbar() {
                                 onChange={textChangeHandler}
                                 value={enteredText}
                             />
-                        </Search>)}
+                        </Search>)} */}
 
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip color="secondary" title={localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).firstName}>

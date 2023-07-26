@@ -10,7 +10,7 @@ const options = {
       description: 'This serves the API documentation for ProposeX Backend Service',
     },
   },
-  apis: ['./src/routes/user.js'], // Specify the path to your route files
+  apis: ['./src/routes/user.js', './src/routes/post.js'], // Specify the path to your route files
 };
 
 const swaggerSpec = swaggerJsdoc(options);

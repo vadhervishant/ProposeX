@@ -57,7 +57,7 @@ const Login = () => {
         // setSnackbarMessage(`Welcome, ${response.data.user.firstName || "user"}`);
         // setOpenSnackbar(true);
         setIsPending(false);
-        navigate(response.data.user.role === "admin" ? "/AdminDashboard" : "/UserDashboard");
+        navigate(response.data.user.role === "admin" ? "/AdminDashboard" : "/posts");
       }
     } catch (error) {
       // setSnackbarSeverity("error");
