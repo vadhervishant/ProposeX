@@ -22,7 +22,7 @@ export default function LandingPage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: `url("https://images2.minutemediacdn.com/image/upload/c_crop,w_2000,h_1125,x_0,y_126/c_fill,w_1440,ar_16:9,f_auto,q_auto,g_auto/images%2FvoltaxMediaLibrary%2Fmmsport%2Fmentalfloss%2F01g895z7vtqjxwvvzj5v.jpg") no-repeat center center/cover`,
+        background: `url("https://images.unsplash.com/photo-1578406843566-2ceb04c80e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1045&q=80") no-repeat center center/cover`,
       }}></Grid>
       <Grid item xs={12} sm={6} md={6} sx={{
         height: '100%',
