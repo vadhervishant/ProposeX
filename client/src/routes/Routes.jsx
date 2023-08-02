@@ -16,7 +16,7 @@ import PostDetails from "../components/posts/PostDetail";
 
 import { UpdatePost } from "../components/postCrud/UpdatePost";
 import  ConfigurePosts  from "../components/postCrud/ConfigurePosts";
-import AddPost  from "./../components/postCrud/AddBook";
+import AddPost  from "./../components/postCrud/AddPost";
 
 
 

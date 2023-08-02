@@ -14,7 +14,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Card, CardHeader, CardMedia, CardContent, Avatar } from '@mui/material';
 
 // import ContentControl from '../watchlist/contentControl/contentControl';
-import UserReview from './BookRating';
+import UserReview from './PostRating';
 import { Buffer } from 'buffer';
 
 const Img = styled('img')({
@@ -26,7 +26,7 @@ const Img = styled('img')({
 
 export default function PostDetails() {
 
-    const [book, setBook] = useState(null);
+    const [post, setPost] = useState(null);
     const [reviews, setReviews] = useState(null);
     const [hasReview, setHasReview] = useState(false);
     const [reviewText, setReviewText] = useState("");
@@ -60,7 +60,7 @@ export default function PostDetails() {
             console.log("response json is: " + response.json());
         })
             .then((data) => {
-                fetchAllReviews(book._id);
+                fetchAllReviews(post._id);
             })
             .catch((error) => console.log(error));
     };
@@ -78,46 +78,49 @@ export default function PostDetails() {
                 }
             }).then((response) => response.json())
             .then((data) => {
-                setBook(data);
+                setPost(data);
                 fetchAllReviews(id);
             })
             .catch((error) => console.log(error));
     }, [id, buttonClick]);
 
-    const handleSubmit = (event) => {
+    const handleReviewSubmit = (event) => {
         event.preventDefault(); // prevent the default form submission behavior
         setFormData(new FormData(event.target));
-
         const userObj = JSON.parse(localStorage.getItem('user'));
-
         if (!localStorage.getItem("token")) { navigate("/") }
-        const apiBody = JSON.stringify({
-            "userId": userObj._id,
-            "contentId": book._id,
-            "rating": ratingUser,
-            "totalRating": 5,
-            "comment": reviewText,
-            "category": "books",
-            "userName": (userObj.firstName && userObj.lastName) ? (userObj.firstName + userObj.lastName) : "User X"
-        })
 
-        fetch(
-            `${process.env.REACT_APP_BASE_URL}/reviews`,
-            {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    "Content-Type": "application/json"
-                },
-                body: apiBody
-            }
-        ).then((response) => {
-            console.log("response json is: " + response.json());
-        })
+        if (reviewText && reviewText.length > 0) {
+            const apiBody = JSON.stringify({
+                "userId": userObj._id,
+                "contentId": post._id,
+                "rating": ratingUser,
+                "totalRating": 5,
+                "comment": reviewText,
+                "category": "books",
+                "userName": (
+                    userObj.firstName && userObj.lastName
+                ) ? (userObj.firstName + userObj.lastName) : "User X"
+            })
+            fetch(
+                `${process.env.REACT_APP_BASE_URL}/reviews`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: apiBody
+                }
+            ).then((response) => {
+                console.log("response json is: " +  response.json());
+                setReviewText('');
+            })
             .then((data) => {
-                fetchAllReviews(book._id);
+                fetchAllReviews(post._id);
             })
             .catch((error) => console.log(error));
+        }
     };
 
 
@@ -164,15 +167,15 @@ export default function PostDetails() {
             .catch((error) => console.log(error));
     };
 
-    if (!book) {
+    if (!post) {
         return <div>Loading...</div>;
     }
 
-    // if (!reviews) {
-    //     return <div>Loading User Reviews..</div>
-    // }
+    if (!reviews) {
+        return <div>Loading User Reviews..</div>
+    }
 
-    const { image, title, authors, publisher, isbn, summary, genre, dateReleased } = book;
+    const { image, title, authors, publisher, isbn, summary, genre, dateReleased } = post;
 
     let imageSrc = '';
     if (image) {
@@ -185,7 +188,7 @@ export default function PostDetails() {
         imageSrc = '';
     }
 
-    const releaseDate = new Date(book.dateReleased);
+    const releaseDate = new Date(post.dateReleased);
     const formattedDate = releaseDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const cardStyles = {
         borderRadius: '16px',
@@ -207,50 +210,41 @@ export default function PostDetails() {
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
             <Card style={cardStyles}>
                 <CardHeader
-                    avatar={
-                        <Avatar aria-label="book">
-                            {title.charAt(0)}
-                        </Avatar>
-                    }
+                    avatar={<Avatar aria-label="book">{title.charAt(0)}</Avatar>}
                     title={title}
-                    subheader={`Post Date: ${new Date(book.dateofPost).toLocaleString('en-us', { month: 'long', day: 'numeric', year: 'numeric' })}`}
+                    subheader={`Post Date: ${new Date(post.dateofPost).toLocaleString('en-us', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                    })}`}
                 />
                 <CardMedia style={mediaStyles} image={imageSrc} title={title} />
                 <CardContent>
-                    <Typography variant="h6" color="textSecondary" component="p">
-                        <b>Location:</b> {book.location}
+                    <Typography variant="h6" color="textPrimary" gutterBottom>
+                        <b>Location:</b> {post.location}
                     </Typography>
-                    <Typography variant="body1" color="textSecondary" component="p">
-                        <b>Overview:</b> {book.description}
+                    <Typography variant="body1" color="textSecondary" gutterBottom>
+                        <b>Overview:</b>
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                        {post.description}
                     </Typography>
                 </CardContent>
-                <div style={{ position: 'relative', float: 'right', bottom: '20px', right: "20px" }}>
-                    {/* Assuming ContentControl component is used for additional actions */}
-                    {/* Replace this with your ContentControl component */}
-                    {/* <ContentControl type="movies" content={movie} buttonClick={buttonClick} setButtonClick={setButtonClick} /> */}
-                </div>
-                {!hasReview && (
-                    <form onSubmit={handleSubmit}>
-                        <CardContent>
-                            <div style={ratingSectionStyles}>
-                                <Typography component="legend" variant="h6" style={{ marginRight: '16px' }}>
-                                    Ratings:
-                                </Typography>
-                                <Rating
-                                    name="userRating"
-                                    value={ratingUser}
-                                    precision={0.5}
-                                    max={5}
-                                    onChange={(event, value) => setRatingUser(value)}
-                                />
-                            </div>
-                            <Typography variant="h6" gutterBottom>
-                                Write a Review
-                            </Typography>
+                <Grid container justifyContent="center" alignItems="center" spacing={2}>
+                    {reviews.map((review, index) => (
+                        <Grid  item key={review} xs={12} md={11}>
+                            <UserReview review={review} onEdit={onEdit} style={{ marginRight: '10px' }} />
+                        </Grid>
+                    ))}
+                </Grid>
+
+                <form onSubmit={handleReviewSubmit}>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
                             <TextField
                                 id="review-text"
                                 name="userComment"
-                                label="Review"
+                                label="Write a review"
                                 multiline
                                 fullWidth
                                 value={reviewText}
@@ -258,121 +252,14 @@ export default function PostDetails() {
                                 variant="outlined"
                                 margin="normal"
                             />
-                            <Button type="submit" variant="contained" color="primary">
-                                Comment
-                            </Button>
-                        </CardContent>
-                    </form>
-                )}
+                        </Typography>
+                        <Button type="submit" variant="contained" color="primary">
+                            Post
+                        </Button>
+                    </CardContent>
+                </form>
+
             </Card>
         </div>
     );
 }
-
-
-// {/* <Paper
-// style={{ marginTop: '20px' }}
-// sx={{
-//     p: 2,
-//     margin: 'auto',
-//     maxWidth: 1000,
-//     flexGrow: 1,
-//     backgroundColor: (theme) =>
-//         theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-// }}
-// >
-// <Grid container spacing={2}>
-//     <Grid item sx={{ width: 'auto' }}>
-//         <ButtonBase sx={{ width: 'auto', height: 600 }}>
-//             <Img
-//                 alt="complex"
-//                 src={imageSrc}
-//             />
-//         </ButtonBase>
-//     </Grid>
-
-//     <Grid item xs sx={{ display: 'flex', flexDirection: 'column' }}>
-//         <Box sx={{ flexGrow: 1 }}>
-//             <Typography gutterBottom variant="h4" component="div">
-//                 {book.title}
-//             </Typography>
-//             <div style={{ position: 'relative', float: 'right', bottom: '50px', right: "20px" }}>
-//                 {/* <ContentControl 
-//     type="books" content={book} buttonClick={buttonClick}
-//     setButtonClick={setButtonClick}
-// /> */}
-//             </div>
-//             <Rating
-//                 name="text-feedback"
-//                 value={3.5}
-//                 readOnly
-//                 precision={0.5}
-//                 emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-//             />
-
-//             <Typography variant="subtitle1">
-//                 By {book.authors}
-//             </Typography>
-//             <Typography variant="body2" color="text.secondary" gutterBottom>
-//                 Published On {formattedDate}
-//             </Typography>
-
-//             <Typography variant="h6" color="text.secondary" sx={{ color: 'black' }} gutterBottom>
-//                 Category: {book.genre}
-//             </Typography>
-
-//             <Typography variant="body2" color="text.secondary" sx={{ color: 'black' }}>
-//                 Published By {book.publisher}
-//             </Typography>
-
-//             <Typography variant="body2" color="text.secondary" gutterBottom>
-//                 ISBN {book.isbn}
-//             </Typography>
-
-//             <Typography variant="h5" gutterBottom> Summary </Typography>
-//             <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'justify' }} gutterBottom>
-//                 {book.summary}
-//             </Typography>
-//         </Box>
-//     </Grid>
-
-// </Grid>
-
-// {!hasReview &&
-//     <form onSubmit={handleSubmit}>
-//         <Typography variant="h6" gutterBottom>
-//             Write a Review
-//         </Typography>
-//         <Typography component="legend">Rating:</Typography>
-//         <Rating
-//             name="userRating"
-//             value={ratingUser}
-
-//             onChange={(event) => setRatingUser(event.target.value)}
-//         />
-//         <TextField
-//             id="review-text"
-//             name="userComment"
-//             label="Review"
-//             multiline
-//             fullWidth
-//             value={reviewText}
-//             onChange={(event) => setReviewText(event.target.value)}
-//             variant="outlined"
-//             margin="normal"
-//         />
-//         <Button type="submit" variant="contained" color="primary">
-//             Comment
-//         </Button>
-//     </form>
-// }
-
-// {/* <Grid>
-// {reviews.map( (review) => (
-//     <Grid item key={review} md={4}>
-//         <UserReview review={review} onEdit={onEdit} />
-//     </Grid>
-// ))}
-// </Grid> */}
-
-// </Paper> */}

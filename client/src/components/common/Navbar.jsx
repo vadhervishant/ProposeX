@@ -24,7 +24,7 @@ import { Settings, Movie, MusicNote, Book, WatchLater, Timeline, Diversity1, Log
 import { styled, alpha } from '@mui/material/styles';
 
 const appName = "ProposeX";
-const appNameShort = "CN";
+const appNameShort = "PX";
 const pages = [/* { text: 'Contact', route: 'Contact' }, { text: 'About', route: 'About' } */];
 // const settings_logged_in = 
 // [{ text: 'Logout', icon: Logout, route: 'Logout' },  { text: 'Configure Posts', icon: Settings, route: 'configureposts' }];
@@ -137,7 +137,7 @@ function Navbar() {
 
     const navigator = (page) => {
         if (!page) {
-            localStorage.clear();
+            // localStorage.clear();
         }
         navigate("/" + page);
     };

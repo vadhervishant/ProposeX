@@ -39,10 +39,12 @@ const PostsCard = ({ card, onPostClick }) => {
   };
 
   const handleComment = (cardId, comment) => {
-    setComments((prevComments) => ({
-      ...prevComments,
-      [cardId]: [...(prevComments[cardId] || []), comment],
-    }));
+    if(comment && comment.length > 0) {
+      setComments((prevComments) => ({
+        ...prevComments,
+        [cardId]: [...(prevComments[cardId] || []), comment],
+      }));
+    }
   };
 
   

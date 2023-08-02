@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: theme.spacing(1),
-    width: '100%'
+    width: '99%'
   },
   title: {
     marginBottom: theme.spacing(2),
