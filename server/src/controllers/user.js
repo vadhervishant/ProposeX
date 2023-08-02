@@ -98,7 +98,7 @@ const verifyToken = async (req, res, next) => {
       token = token.split(' ')[1];
       const decodedJwt = await jwtUtil.verifyJWT(token);
       if (!decodedJwt.verify) {
-        res.redirect('/logout');
+        res.redirect('/api/logout');
         throw throwError(401, 'Token expired or invalid');
       }
       req.data = decodedJwt.data;

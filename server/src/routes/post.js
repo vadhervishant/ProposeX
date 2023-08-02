@@ -204,7 +204,6 @@ router.route('/updatePost/:postID').post(upload.single('image'), verifyToken, up
  *       500:
  *         description: Internal server error
  */
-
 router.route("/deletePost/:postID").delete(verifyToken, deletePost);
 
 

@@ -38,26 +38,17 @@ const PostsCard = ({ card, onPostClick }) => {
     return likes[cardId] || 0;
   };
 
-  const handleComment = (cardId, comment) => {
-    if(comment && comment.length > 0) {
-      setComments((prevComments) => ({
-        ...prevComments,
-        [cardId]: [...(prevComments[cardId] || []), comment],
-      }));
-    }
-  };
-
   
-    let imageSrc = '';
-    if (card.image) {
-      if (card.image.type === "Buffer") {
-        imageSrc = `data:image/jpeg;base64,${Buffer.from(card.image).toString('base64')}`;
-      } else {
-        imageSrc = card.image;
-      }
-    } else{
-      imageSrc = '';
+  let imageSrc = '';
+  if (card.image) {
+    if (card.image.type === "Buffer") {
+      imageSrc = `data:image/jpeg;base64,${Buffer.from(card.image).toString('base64')}`;
+    } else {
+      imageSrc = card.image;
     }
+  } else{
+    imageSrc = '';
+  }
 
   return (
 
@@ -91,7 +82,7 @@ const PostsCard = ({ card, onPostClick }) => {
         </Typography>
         <Typography sx={{ fontSize: '14px' }}>{card.description}</Typography>
       </CardContent>
-      <CardActions>
+      {/* <CardActions>
         <Button
           size="small"
           onClick={() => handleLike(card.id)}
@@ -106,8 +97,8 @@ const PostsCard = ({ card, onPostClick }) => {
         >
           Reviews
         </Button>
-      </CardActions>
-      {activeCard === card.id && (
+      </CardActions> */}
+      {/* {activeCard === card.id && (
         <CardContent>
           {comments[card.id] &&
             comments[card.id].map((comment, index) => (
@@ -140,7 +131,7 @@ const PostsCard = ({ card, onPostClick }) => {
             Post a review
           </Button>
         </CardContent>
-      )}
+      )} */}
     </Card>
   </div>
   );
