@@ -1,0 +1,27 @@
+# Step 1: Install Netlify CLI globally (if you haven't already)
+npm install -g netlify-cli
+
+# Step 2: Navigate to your project directory (replace "your-project-directory" with your actual directory)
+cd /client
+
+# Step 3: Build the React app (replace "build" with the actual script for building your app)
+npm run build
+
+# Step 4: Authenticate with Netlify (this will open a browser to log in)
+netlify login
+
+# Step 5: Initialize a new site on Netlify (if you haven't already)
+netlify init
+
+# Step 6: Set up environment variables (if required)
+# netlify env:set VARIABLE_NAME "variable value"
+
+# Step 7: Deploy the app to Netlify
+netlify deploy
+
+# Step 8: Optionally, if you want to deploy a specific branch or directory
+# netlify deploy --prod # For production deployment
+# netlify deploy --dir=dist # If your build output directory is different from the default "build" directory
+
+# Step 9: Open the live site in the browser
+netlify open:site
