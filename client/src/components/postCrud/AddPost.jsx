@@ -125,7 +125,7 @@ const AddPost = () => {
                   />
                   <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
-                      Book Cover Preview
+                      Post Image Preview
                     </Typography>
                   </CardContent>
                   <CardActions>
