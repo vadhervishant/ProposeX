@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const conn_string = 'mongodb+srv://vadhervishant:admin@maincluster.8n5tqju.mongodb.net/?retryWrites=true&w=majority';
+const conn_string = '';
 
 mongoose.connect(conn_string)
   .then((db) => {
