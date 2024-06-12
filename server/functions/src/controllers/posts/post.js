@@ -4,9 +4,6 @@ exports.getAllPosts = async (req, res) => {
   try {
     // const { title, authors, genre } = req.query;
     const posts = await postsModel.find();
-
-    console.log('POSTS HIT >>>>>>>>>>>>>>>>>.', posts)
-
     res.json(posts);
   } catch (error) {
     res.status(400).json({ message: error.message });
