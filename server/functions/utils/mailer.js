@@ -1,4 +1,6 @@
 const nodemailer = require('nodemailer');
+require('dotenv').config();
+
 
 const sendEmail = async (to, subject, text) => {
   return new Promise(async (resolve, reject) => {
@@ -6,8 +8,8 @@ const sendEmail = async (to, subject, text) => {
       let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: '',
-          pass: '',
+          user: process.env.MailerEmail ?? '',
+          pass: process.env.MailerPassword ?? '',
         },
       });
 

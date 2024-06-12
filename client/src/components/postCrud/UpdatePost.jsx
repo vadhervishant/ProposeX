@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import {
   TextField,
   Button,
@@ -20,9 +20,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Buffer } from 'buffer';
 import axios from 'axios';
 import DeletePost from './DeletePost';
+import { UserContext } from "../../utils/UserContext";
 
 const UpdatePost = () => {
   const [posts, setPosts] = useState([]);
+  const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
   const [openEditForm, setOpenEditForm] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [deletingPostId, setDeletingPostId] = useState(null);
@@ -35,6 +37,7 @@ const UpdatePost = () => {
     location: '',
     summary: '',
   });
+
 
   useEffect(() => {
     fetchPosts();
@@ -152,6 +155,8 @@ const ConfigurableListOfPosts = React.memo(({ posts, onEditClick, onDeleteClick 
 
 const EditPostForm = React.memo(({ open, onClose, formData, setFormData }) => {
   const [previewImage, setPreviewImage] = useState(null);
+  const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
+
 
   useEffect(() => {
     let imageSrc = null;
@@ -208,22 +213,18 @@ const EditPostForm = React.memo(({ open, onClose, formData, setFormData }) => {
         }
       )
       .then((res) => {
-        // setSnackbarSeverity('success');
-        // setSnackbarMessage(
-        //   'Book Updated!',
-        // );
-        // setOpenSnackbar(true);
-        console.log('RES IN UPDATE >>>>>>>>>>>>>>>', res)
-
+        setSnackbarSeverity('success');
+        setSnackbarMessage(
+          'Post Updated!',
+        );
+        setOpenSnackbar(true);
       })
       .catch((error) => {
-
-        console.log('ERROR IN UPDATE >>>>>>>>>>>>>>>', error)
-        // setSnackbarSeverity('error');
-        // setSnackbarMessage(
-        //   "Error in Updating Book: " + error,
-        // );
-        // setOpenSnackbar(true);
+        setSnackbarSeverity('error');
+        setSnackbarMessage(
+          "Error in Updating Post: " + error,
+        );
+        setOpenSnackbar(true);
       });
       onClose();
   };

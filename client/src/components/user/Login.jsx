@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { UserContext } from "../../utils/UserContext";
+// import { setSnackbarSeverity, setSnackbarMessage, setOpenSnackbar } from "../common/CommonSnackbar";
 
 const Login = () => {
 
@@ -18,7 +19,7 @@ const Login = () => {
   const [form, setForm] = useState(defaultForm);
 
   const [isPending, setIsPending] = useState(false);
-  // const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
+  const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
 
 
   const [error, setError] = useState({
@@ -53,16 +54,16 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
         setForm({ ...defaultForm });
-        // setSnackbarSeverity("success");
-        // setSnackbarMessage(`Welcome, ${response.data.user.firstName || "user"}`);
-        // setOpenSnackbar(true);
+        setSnackbarSeverity("success");
+        setSnackbarMessage(`Welcome, ${response.data.user.firstName || "user"}`);
+        setOpenSnackbar(true);
         setIsPending(false);
         navigate(response.data.user.role === "admin" ? "/AdminDashboard" : "/posts");
       }
     } catch (error) {
-      // setSnackbarSeverity("error");
-      // setSnackbarMessage(error.response.data.message);
-      // setOpenSnackbar(true);
+      setSnackbarSeverity("error");
+      setSnackbarMessage(error.code);
+      setOpenSnackbar(true);
       setIsPending(false);
     }
   };
@@ -91,6 +92,7 @@ const Login = () => {
 
 
   return (
+
     <Grid container sx={{ margin: 5 }}>
       <Grid item xs={1} md={4}></Grid>
       <Grid item xs={10} md={4}>

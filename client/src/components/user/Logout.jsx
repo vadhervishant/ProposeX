@@ -4,13 +4,13 @@ import { UserContext } from "../../utils/UserContext";
 
 const Logout = () => {
   const navigate = useNavigate();
-  // const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
+  const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
 
   useEffect(() => {
     localStorage.clear();
-    // setSnackbarSeverity("success");
-    // setSnackbarMessage("User logged out");
-    // setOpenSnackbar(true);
+    setSnackbarSeverity("success");
+    setSnackbarMessage("User logged out");
+    setOpenSnackbar(true);
     navigate("/");
   }, []);
 

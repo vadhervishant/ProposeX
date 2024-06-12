@@ -3,12 +3,13 @@
 import React, { useContext } from 'react';
 import { Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import axios from 'axios';
-// import { UserContext } from "../../../utils/UserContext";
+import { UserContext } from "../../utils/UserContext";
+
 
 const DeletePost = ({ bookID, open, onClose, fetchPosts }) => {
 
-  // const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } =
-  // useContext(UserContext);
+  const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } =
+  useContext(UserContext);
 
   const handleDelete = () => {
     axios
@@ -23,20 +24,20 @@ const DeletePost = ({ bookID, open, onClose, fetchPosts }) => {
         }
       )
       .then((res) => {
-        // setSnackbarSeverity('success');
-        // setSnackbarMessage(
-        //   'Book Deleted!',
-        // );
-        // setOpenSnackbar(true);
+        setSnackbarSeverity('success');
+        setSnackbarMessage(
+          'Post Deleted!',
+        );
+        setOpenSnackbar(true);
         fetchPosts();
         onClose();
       })
       .catch((error) => {
-        // setSnackbarSeverity('error');
-        // setSnackbarMessage(
-        //   "Error in Deleting Book: " + error,
-        // );
-        // setOpenSnackbar(true);
+        setSnackbarSeverity('error');
+        setSnackbarMessage(
+          "Error in Deleting Post: " + error,
+        );
+        setOpenSnackbar(true);
       });
   };
 

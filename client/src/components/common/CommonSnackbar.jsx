@@ -2,9 +2,10 @@ import MuiAlert from '@mui/material/Alert';
 import { UserContext } from '../../utils/UserContext';
 import { useContext, forwardRef } from "react";
 import { Snackbar } from "@mui/material";
+// import Snackbar from '@mui/material/Snackbar';
+
 
 export default function CommonSnackbar() {
-    console.log("snackbar > > > ", UserContext);
     const { openSnackbar, setOpenSnackbar } = useContext(UserContext);
     const { snackbarMessage, setSnackbarMessage } = useContext(UserContext);
     const { snackbarSeverity, setSnackbarSeverity } = useContext(UserContext);

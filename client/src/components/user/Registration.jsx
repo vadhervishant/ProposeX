@@ -21,7 +21,7 @@ const Registration = () => {
   const [form, setForm] = useState(defaultForm);
 
   const [isPending, setIsPending] = useState(false);
-  // const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
+  const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
 
   const [error, setError] = useState({
     firstName: false,
@@ -59,16 +59,16 @@ const Registration = () => {
         });
       if (response.status == 201) {
         setForm({ ...defaultForm });
-        // setSnackbarSeverity("success");
-        // setSnackbarMessage("User registration successful.");
-        // setOpenSnackbar(true);
+        setSnackbarSeverity("success");
+        setSnackbarMessage("User registration successful.");
+        setOpenSnackbar(true);
         setIsPending(false);
         navigate("/Login");
       }
     } catch (error) {
-      // setSnackbarSeverity("error");
-      // setSnackbarMessage(error.response.data.message);
-      // setOpenSnackbar(true);
+      setSnackbarSeverity("error");
+      setSnackbarMessage(error.response.data.message);
+      setOpenSnackbar(true);
       setIsPending(false);
     }
   };

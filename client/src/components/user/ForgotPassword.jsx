@@ -29,7 +29,7 @@ const ForgotPassword = () => {
   const [emailTextboxVisible, setEmailTextboxVisible] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
 
-  // const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
+  const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
 
   const [error, setError] = useState({
     email: false,
@@ -89,15 +89,16 @@ const ForgotPassword = () => {
       if (response.status == 200) {
         setIsPending(false);
         setEmailTextboxVisible(false);
-        // setSnackbarSeverity("success");
-        // setSnackbarMessage("A 6-digit code has been sent to the registered email");
-        // setOpenSnackbar(true);
+        setSnackbarSeverity("success");
+        setSnackbarMessage("A 6-digit code has been sent to the registered email");
+        setOpenSnackbar(true);
       }
     } catch (error) {
+      console.log('error', error);
       setIsPending(false);
-      // setSnackbarSeverity("error");
-      // setSnackbarMessage(error.response.data.message);
-      // setOpenSnackbar(true);
+      setSnackbarSeverity("error");
+      setSnackbarMessage(error.message);
+      setOpenSnackbar(true);
     }
   };
 
@@ -121,9 +122,9 @@ const ForgotPassword = () => {
       }
     } catch (error) {
       setIsPending(false);
-      // setSnackbarSeverity("error");
-      // setSnackbarMessage(error.response.data.message);
-      // setOpenSnackbar(true);
+      setSnackbarSeverity("error");
+      setSnackbarMessage(error.response.data.message);
+      setOpenSnackbar(true);
     }
   };
 
@@ -145,9 +146,9 @@ const ForgotPassword = () => {
       if (response.status == 200) {
         localStorage.clear();
         setIsChangePasswordPending(false);
-        // setSnackbarSeverity("success");
-        // setSnackbarMessage('Password changed successfully.');
-        // setOpenSnackbar(true);
+        setSnackbarSeverity("success");
+        setSnackbarMessage('Password changed successfully.');
+        setOpenSnackbar(true);
         navigate("/Login");
       }
     } catch (error) {
@@ -156,9 +157,9 @@ const ForgotPassword = () => {
       }
       setIsPending(false);
       setOpenDialog(false);
-      // setSnackbarSeverity("error");
-      // setSnackbarMessage(error.response.data.message);
-      // setOpenSnackbar(true);
+      setSnackbarSeverity("error");
+      setSnackbarMessage(error.response.data.message);
+      setOpenSnackbar(true);
     }
   };
 

@@ -9,6 +9,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { UserContext } from "../../utils/UserContext";
+
 
 
 const UserProfile = () => {
@@ -34,7 +36,7 @@ const UserProfile = () => {
   const [isUpdatePasswordPending, setIsUpdatePasswordPending] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  // const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
+  const { setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(UserContext);
 
 
   const [error, setError] = useState({
@@ -68,9 +70,9 @@ const UserProfile = () => {
       if (error.response.status == 401) {
         navigate("/SessionTimeOut");
       }
-      // setSnackbarSeverity("error");
-      // setSnackbarMessage('Something went wrong! Please refresh to try again...');
-      // setOpenSnackbar(true);
+      setSnackbarSeverity("error");
+      setSnackbarMessage('Something went wrong! Please refresh to try again...');
+      setOpenSnackbar(true);
     }
   };
 
@@ -91,17 +93,17 @@ const UserProfile = () => {
         setProfileFormChanged(false);
         setProfileForm(response.data.user);
         setIsPending(false);
-        // setSnackbarSeverity("success");
-        // setSnackbarMessage('Profile updated successfully.');
-        // setOpenSnackbar(true);
+        setSnackbarSeverity("success");
+        setSnackbarMessage('Profile updated successfully.');
+        setOpenSnackbar(true);
       }
     } catch (error) {
       if (error.response.status == 401) {
         navigate("/SessionTimeOut");
       }
-      // setSnackbarSeverity("error");
-      // setSnackbarMessage(error.response.data.message);
-      // setOpenSnackbar(true);
+      setSnackbarSeverity("error");
+      setSnackbarMessage(error.response.data.message);
+      setOpenSnackbar(true);
     }
   };
 
@@ -123,19 +125,19 @@ const UserProfile = () => {
         setProfileFormChanged(false);
         setIsUpdatePasswordPending(false);
         setProfileForm(response.data.user);
-        // setSnackbarSeverity("success");
+        setSnackbarSeverity("success");
         setPasswordForm({ ...defaultPasswordForm });
         setOpenDialog(false);
-        // setSnackbarMessage('Password changed successfully.');
-        // setOpenSnackbar(true);
+        setSnackbarMessage('Password changed successfully.');
+        setOpenSnackbar(true);
       }
     } catch (error) {
       if (error.response.status == 401) {
         navigate("/SessionTimeOut");
       }
-      // setSnackbarSeverity("error");
-      // setSnackbarMessage(error.response.data.message);
-      // setOpenSnackbar(true);
+      setSnackbarSeverity("error");
+      setSnackbarMessage(error.response.data.message);
+      setOpenSnackbar(true);
     }
   };
 

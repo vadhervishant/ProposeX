@@ -6,15 +6,18 @@ import { CssBaseline } from '@mui/material';
 import { appTheme } from './themes/theme';
 import AppRoutes from './routes/Routes';
 import Navbar from './components/common/Navbar';
-// import CommonSnackbar from './components/common/CommonSnackbar';
+import CommonSnackbar from './components/common/CommonSnackbar';
+import { UserContext, ContextProvider } from './utils/UserContext';
 
 function App() {
   return (
     <ThemeProvider theme={appTheme}>
     <CssBaseline enableColorScheme />
       <Navbar />
-      {/* <CommonSnackbar /> */}
-      <AppRoutes />
+      <ContextProvider>
+      <CommonSnackbar />
+        <AppRoutes />
+      </ContextProvider>
       {/* <Dash></Dash> */}
     </ThemeProvider>
   );
